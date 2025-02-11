@@ -1,8 +1,9 @@
 import express from "express"
 import cors from 'cors'
 import 'dotenv/config'
-import { connectDb } from "./config/DBconnect";
-import { connectCloudinary } from "./config/cloudinary";
+import { connectDb } from "./config/DBconnect.js";
+import { connectCloudinary } from "./config/cloudinary.js";
+import adminRouter from "./routes/adminRoute.js";
 
 // app
 const app = express();
@@ -15,9 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 // api
-app.get('/',(req,res)=>{
-
-});
+app.use('/api/admin',adminRouter);
 
 app.listen(port,()=>{
     console.log(`Server at http://localhost/${port}`);
