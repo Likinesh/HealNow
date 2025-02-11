@@ -5,7 +5,7 @@ import Doctor_model from '../models/doctorModel.js';
 import jwt from 'jsonwebtoken';
 export const doctorRegister = async(req,res)=>{
     try {
-        const {name,email,password,speciality,degree,experience,about,fees,address} = req.body();
+        const {name,email,password,speciality,degree,experience,about,fees,address} = req.body;
         const img = req.file;
 
         if(!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address){
@@ -19,7 +19,7 @@ export const doctorRegister = async(req,res)=>{
         
         // check password
         if(password.length<8){
-            return res.json({success:false,message:'Enter a string password'});
+            return res.json({success:false,message:'Enter a strong password'});
         }
 
         // Salt and hash pwd
@@ -63,6 +63,16 @@ export const loginAdmin = async(req,res)=>{
         else{
             res.json({success:false,message:"Invalid Credentials"});
         }
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message});
+    }
+}
+
+export const alldoctors = async(req,res)=>{
+    try {
+        const doctors = await Doctor_model.find({}).select('-password');
+        res.json({success:true,doctors});
     } catch (error) {
         console.log(error);
         res.json({success:false,message:error.message});
