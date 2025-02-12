@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Doctors from './pages/Doctors'
@@ -22,8 +22,8 @@ const App = () => {
           <Route path='/about' element={<About/>}/>
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/my-profile' element={<MyProfile/>}/>
-          <Route path='my-appointments' element={<Myappointement/>}/>
-          <Route path='appointment/:docId' element={<Appointment/>}/>
+          <Route path='/my-appointments' element={<Myappointement/>}/>
+          <Route path='/appointment/:docId' element={<Appointment/>}/>
         </Routes>
     </div>
   )
