@@ -97,8 +97,8 @@ const Appointment = () => {
             {
               docSlot.length && docSlot.map((item,index)=>(
                 <div onClick={()=>set_index(index)} key={index} className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotindex === index ? 'bg-[#5F6FFF] text-white ': 'border border-gray-50 '}`}>
-                <p>{item[0] &&days[item[0].datetime.getDay()]}</p>
-                <p>{item[0] && item[0].datetime.getDate()}</p>
+                <p>{item[0] &&days[item[0].datetime.getDay()] || days[(Date.now()/(1000*60*60*24))%7]}</p>
+                <p>{item[0] && item[0].datetime.getDate() }</p>
                 </div>
               ))
             }
