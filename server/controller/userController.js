@@ -37,11 +37,9 @@ export const registerUSer = async (req, res) => {
     const new_user = new User_Model(data);
     const user = await new_user.save();
 
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
-    });
+    const utoken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
 
-    return res.json({ success: true, token });
+    return res.json({ success: true, utoken });
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: error.message });
@@ -55,12 +53,10 @@ export const LoginUser = async (req, res) => {
     if (!user) {
       return res.json({ success: false, message: "User not found" });
     }
-    const isMatch = bcrypt.compare(password, user.password);
+    const isMatch =await bcrypt.compare(password, user.password);
     if (isMatch) {
-      const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-        expiresIn: "1d",
-      });
-      return res.json({ success: true, token });
+      const utoken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
+      return res.json({ success: true, utoken });
     } else {
       return res.json({ success: false, message: "Wrong Password" });
     }

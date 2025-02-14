@@ -57,7 +57,7 @@ export const loginAdmin = async(req,res)=>{
     try {
         const {email,password} = req.body;
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PWD){
-            const token = jwt.sign(email+password,process.env.SECRET_KEY,{expiresIn:'1h'});
+            const token = jwt.sign(email+password,process.env.SECRET_KEY);
             res.json({success:true,token});
         }
         else{
