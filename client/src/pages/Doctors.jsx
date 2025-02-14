@@ -7,6 +7,8 @@ const Doctors = () => {
   const {speciality} = useParams();
   // console.log(speciality);
   const [filter,set_filter]=useState([]);
+  const [showFilter, setShoeFilter] = useState(false)
+
   const navigate = useNavigate()
   const {doctors} = useContext(AppContext);
 
@@ -27,7 +29,8 @@ const Doctors = () => {
     <div>
         <p className='text-gray-600'>Browser Through Doctors specialist.</p>
         <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
-          <div className=' flex flex-col gap-4 text-sm text-gray-600'>
+          <button className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${showFilter ? 'bg-blue-300 text-white' : ''}`} >Filters</button>
+          <div className={`flex-col gap-4 text-sm text-gray-600 ${showFilter ? 'flex' : 'hidden sm:flex'}`}>
             {
               types.map((item,index)=>(
                 <p onClick={()=>speciality===item?navigate('/doctors'):navigate(`/doctors/${item}`)} key={index} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality===item?'bg-indigo-100 text-black':''}`}>{item}</p>
