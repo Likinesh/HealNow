@@ -4,16 +4,16 @@ export const color ={
 }
 
 export const types = [
-    // 'Cardiologist',
+    'Cardiologist',
     'Dermatologist',
     'General Physician',
     'Gastroenterologist',
     'Neurologist',
-    // 'Ophthalmologist',
+    'Ophthalmologist',
     'Gynecologist',
-    // 'Dentist',
-    // 'Oncologist',
-    // 'Psychiatrist',
+    'Dentist',
+    'Oncologist',
+    'Psychiatrist',
     'Pediatrician',
 ]
 
