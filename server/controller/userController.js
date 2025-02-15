@@ -162,3 +162,31 @@ export const UserBooking = async(req,res)=>{
     return res.json({ success: false, message: error.message });
   }
 }
+
+export const cancelAppointment = async(req,res)=>{
+  try {
+    const {userId,appointmentId} = req.body;
+    const appointmentData = await appointment_Model.findById(appointmentId);
+    if(appointmentId.userId != userId){
+      return res.json({success:false,message:'Unauthorized access'});
+    }
+    await appointment_Model.findByIdAndUpdate(appointmentId,{
+      cancelled:true,
+    })
+
+    const {docId,slotDate,slotTime} = appointmentData;
+
+    const docData = await Doctor_model.findById(docId);
+    let slots_booked = docData.slots_booked;
+    slots_booked[slotDate] = slots_booked[slotDate].filter(e=>e!==slotTime);
+    await Doctor_model.findByIdAndUpdate(docId,{
+      slots_booked
+    })
+
+    res.json({success:true,message:'Appointment Cancelled'});
+
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: error.message });
+  }
+}

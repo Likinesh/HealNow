@@ -6,7 +6,7 @@ import { months } from '../constants';
 
 const Myappointements = () => {
 
-  const { BackendUrl,utoken } = useContext(AppContext)
+  const { BackendUrl,utoken,getDoctorsData } = useContext(AppContext)
   const [appointment,set_appointment] = useState([]);
   const slotDate_format = (slotDate)=>{
     const dateArray = slotDate.split('_');
@@ -22,6 +22,24 @@ const getUserAppointment = async () => {
       toast.error(data.message);
     }
   } catch (error) {
+    toast.error(error.message)
+  }
+}
+
+const cancelAppointment = async(appointmentId) =>{
+  try {
+    
+    const {data} = await axios.post(BackendUrl+'api/user/cancel-appointment',{appointmentId},{headers:{utoken}})
+    if(data.success){
+      toast.success(data.message);
+      getUserAppointment();
+      getDoctorsData();
+    }
+    else{
+      toast.error(data.message);
+    }
+  } catch (error) {
+    console.log(error);
     toast.error(error.message)
   }
 }
@@ -52,8 +70,14 @@ const getUserAppointment = async () => {
 
               <div></div>
               <div className='flex flex-col gap-2 justify-end'>
-                <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border hover:bg-blue-400 hover:text-white transition-all duration-300'>Pay Online</button>
-                <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border  hover:bg-red-600 hover:text-white transition-all duration-300'>Cancel Appointment</button>
+              {!item.cancelled?
+                <>
+                  <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border hover:bg-blue-400 hover:text-white transition-all duration-300'>Pay Online</button>
+                  <button onClick={() => cancelAppointment(item._id)} className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border  hover:bg-red-600 hover:text-white transition-all duration-300'>Cancel Appointment</button>
+                </>
+                :
+                <button className='sm:min-w-48 py-2 border border-red-500 rounded textred500'>Appointment Cancelled</button>
+              }
               </div>
 
             </div>
