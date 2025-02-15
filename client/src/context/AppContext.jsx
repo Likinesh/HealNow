@@ -40,18 +40,6 @@ export const AppContextProvider = (props) =>{
             toast.error(error.message);
         }
     }
-
-    const value={ 
-        doctors,
-        currency,
-        utoken,
-        set_token,
-        BackendUrl,
-        userData,
-        set_user,
-        userProfile 
-    };
-
     useEffect(()=>{
         getDoctorsData();
     },[]);
@@ -64,6 +52,20 @@ export const AppContextProvider = (props) =>{
             set_user(false);
         }
     },[utoken]);
+
+    const value={ 
+        doctors,
+        getDoctorsData,
+        currency,
+        utoken,
+        set_token,
+        BackendUrl,
+        userData,
+        set_user,
+        userProfile 
+    };
+
+    
 
     
     return(

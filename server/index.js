@@ -4,6 +4,8 @@ import 'dotenv/config'
 import { connectDb } from "./config/DBconnect.js";
 import { connectCloudinary } from "./config/cloudinary.js";
 import adminRouter from "./routes/adminRoute.js";
+import DoctorRouter from "./routes/DoctorRoute.js";
+import userRoute from "./routes/userRoutes.js";
 
 // app
 const app = express();
@@ -17,6 +19,8 @@ app.use(cors());
 
 // api
 app.use('/api/admin',adminRouter);
+app.use('/api/doctor',DoctorRouter);
+app.use('/api/user',userRoute);
 
 app.listen(port,()=>{
     console.log(`Server at http://localhost/${port}`);

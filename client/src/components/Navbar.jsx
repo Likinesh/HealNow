@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import { useContext, useState } from 'react'
 import {assets} from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { AppContext } from '../context/AppContext';
 
 const Navbar = () => {
     const navigate = useNavigate();
 
     const [showMenu, setShowMenu] = useState(false);
-    const [token, setToken] = useState(true);
-
+    const {utoken, set_token,userData} = useContext(AppContext);
+    const logout = () =>{
+        set_token(false);
+        localStorage.removeItem('utoken');
+    }
   return (
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
         <img onClick={()=>navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt="" />
@@ -31,15 +35,15 @@ const Navbar = () => {
         </ul>
         <div className='flex items-center gap-4'>
             {
-                token 
+                utoken && userData
                 ? <div className='flex items-center gap-2 cursor-pointer group relative'>
-                    <img className='w-9 rounded-full' src={assets.profile_pic} alt="" />
+                    <img className='w-9 rounded-full' src={userData.image} alt="" />
                     <img className='w-3' src={assets.dropdown_icon} alt="" />
                     <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block '>
                         <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4'>
                             <p onClick={()=>navigate('my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
                             <p onClick={()=>navigate('my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
-                            <p onClick={()=>setToken(false)} className='hover:text-black cursor-pointer'>Logout</p>
+                            <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
                         </div>
                     </div>
                 </div> 
@@ -53,10 +57,11 @@ const Navbar = () => {
                     <img className='w-7' onClick={()=>setShowMenu(false)} src={assets.cross_icon} alt="" />
                 </div>
                 <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium'>
-                    <NavLink onClick={()=>setShowMenu(false)} to='/'><p className='px-4 py-2 rounded inline-block'>HOME</p></NavLink>
-                    <NavLink onClick={()=>setShowMenu(false)} to='/doctors'><p className='px-4 py-2 rounded inline-block'>All Doctos</p></NavLink>
-                    <NavLink onClick={()=>setShowMenu(false)} to='/about'><p className='px-4 py-2 rounded inline-block'>ABOUT</p></NavLink> 
-                    <NavLink onClick={()=>setShowMenu(false)} to='/contact'><p className='px-4 py-2 rounded inline-block'>CONTACT</p></NavLink>
+                    <NavLink onClick={()=>setShowMenu(false)} to='/'><p className='px-4 py-2 rounded inline-block cursor-pointer'>Home</p></NavLink>
+                    <NavLink onClick={()=>setShowMenu(false)} to='/doctors'><p className='px-4 py-2 rounded inline-block cursor-pointer'>All Doctors</p></NavLink>
+                    <NavLink onClick={()=>setShowMenu(false)} to='/about'><p className='px-4 py-2 rounded inline-block cursor-pointer'>About Us</p></NavLink> 
+                    <NavLink onClick={()=>setShowMenu(false)} to='/contact'><p className='px-4 py-2 rounded inline-block cursor-pointer'>Contact us</p></NavLink>
+                    <NavLink onClick={()=>setShowMenu(false)} to='./login'><p className='px-4 py-2 inline-block cursor-pointer bg-blue-700 text-white rounded-full'>Create Account</p></NavLink>
                 </ul>
             </div>
         </div>

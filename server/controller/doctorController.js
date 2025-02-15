@@ -11,3 +11,13 @@ export const change_Avail = async(req,res)=>{
         res.json({success:false,message:error.message});
     }
 }
+
+export const allDoctors = async (req,res)=>{
+    try {
+        const doctors = await Doctor_model.find({}).select(['-password','-email']);
+        res.json({success:true,doctors});
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message});
+    }
+}
