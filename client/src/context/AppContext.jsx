@@ -55,6 +55,7 @@ export const AppContextProvider = (props) =>{
 
     const value={ 
         doctors,
+        getDoctorsData,
         currency,
         utoken,
         set_token,

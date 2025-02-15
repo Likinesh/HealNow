@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import { v2 as cloudinary } from "cloudinary";
 import jwt from "jsonwebtoken";
 import User_Model from "../models/userModel.js";
+import Doctor_model from "../models/doctorModel.js";
+import appointment_Model from "../models/appointmentModel.js";
 
 //User register
 
@@ -100,3 +102,63 @@ export const UpdateProfile = async (req, res) => {
     return res.json({ success: false, message: error.message });
   }
 };
+
+
+export const BookAppointment = async (req,res)=>{
+  try {
+    const {userId,docId,slotDate,slotTime}=req.body;
+    
+    const docData = await Doctor_model.findById(docId).select('-password');
+    if(!docData.available){
+      return res.json({success:false,message:'Doctor Not Available'});
+    }
+    
+    let slots_booked = docData.slots_booked;
+    //check slot
+    if(slots_booked[slotDate]){
+      if(slots_booked[slotDate].includes(slotTime)){
+        return res.json({success:false,message:'Slot Not Available'});
+      }
+      else{
+        slots_booked[slotDate].push(slotTime);
+      }
+    }
+    else{
+      slots_booked[slotDate]=[];
+      slots_booked[slotDate].push(slotTime);
+    }
+    const userData = await User_Model.findById(userId).select('-password');
+    delete docData.slots_booked;
+    const appointment_data = {
+      userId,
+      docId,
+      userData,
+      docData,
+      amount:docData.fees,
+      slotTime,
+      slotDate,
+      date:Date.now()
+    }
+    const newAppointment = new appointment_Model(appointment_data);
+    await newAppointment.save();
+
+    await Doctor_model.findByIdAndUpdate(docId,{slots_booked});
+
+    res.json({success:true,message:'Appointment Booked'});
+
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: error.message });
+  }
+}
+
+export const UserBooking = async(req,res)=>{
+  try {
+    const {userId} = req.body;
+    const appointments = await appointment_Model.find({userId});
+    res.json({success:true,appointments})
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: error.message });
+  }
+}
