@@ -12,37 +12,38 @@ const Myappointements = () => {
     const dateArray = slotDate.split('_');
     return dateArray[0]+' '+months[Number(dateArray[1])]+' '+dateArray[2]
   }
-const getUserAppointment = async () => {
-  try {
-    const {data} = await axios.get(BackendUrl+'api/user/appointments',{headers:{utoken}});
-    if(data.success){
-      set_appointment(data.appointments.reverse());
-    }
-    else{
-      toast.error(data.message);
-    }
-  } catch (error) {
-    toast.error(error.message)
-  }
-}
 
-const cancelAppointment = async(appointmentId) =>{
-  try {
-    
-    const {data} = await axios.post(BackendUrl+'api/user/cancel-appointment',{appointmentId},{headers:{utoken}})
-    if(data.success){
-      toast.success(data.message);
-      getUserAppointment();
-      getDoctorsData();
+  const getUserAppointment = async () => {
+    try {
+      const {data} = await axios.get(BackendUrl+'api/user/appointments',{headers:{utoken}});
+      if(data.success){
+        set_appointment(data.appointments.reverse());
+      }
+      else{
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message)
     }
-    else{
-      toast.error(data.message);
-    }
-  } catch (error) {
-    console.log(error);
-    toast.error(error.message)
   }
-}
+
+  const cancelAppointment = async(appointmentId) =>{
+    try {
+      
+      const {data} = await axios.post(BackendUrl+'api/user/cancel-appointment',{appointmentId},{headers:{utoken}})
+      if(data.success){
+        toast.success(data.message);
+        getUserAppointment();
+        getDoctorsData();
+      }
+      else{
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message)
+    }
+  }
 
   useEffect(()=>{
     if(utoken){
@@ -54,7 +55,7 @@ const cancelAppointment = async(appointmentId) =>{
     <div>
         <p className='pb-3 mt-12 font-medium text-zinc-700 border-b'>My Appointment</p>
         <div>
-          {appointment.map((item,index)=>{
+          {appointment.map((item,index)=>(
             <div className='grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 py-2 border-b' key={index}>
               <div>
                 <img className='w-32 bg-indigo-50' src={item.docData.image} alt="" />
@@ -69,6 +70,7 @@ const cancelAppointment = async(appointmentId) =>{
               </div>
 
               <div></div>
+              
               <div className='flex flex-col gap-2 justify-end'>
               {!item.cancelled?
                 <>
@@ -81,7 +83,7 @@ const cancelAppointment = async(appointmentId) =>{
               </div>
 
             </div>
-          })}
+          ))}
         </div>
     </div>
   )
