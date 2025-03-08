@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 import {v2 as cloudinary} from 'cloudinary';
 import Doctor_model from '../models/doctorModel.js';
 import jwt from 'jsonwebtoken';
+import User_Model from '../models/userModel.js';
+import appointment_Model from '../models/appointmentModel.js';
 export const doctorRegister = async(req,res)=>{
     try {
         const {name,email,password,speciality,degree,experience,about,fees,address} = req.body;
@@ -73,6 +75,24 @@ export const alldoctors = async(req,res)=>{
     try {
         const doctors = await Doctor_model.find({}).select('-password');
         res.json({success:true,doctors});
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message});
+    }
+}
+
+export const admin_dashboard = async(req,res)=>{
+    try {
+        const doctors = await Doctor_model.find({});
+        const users = await User_Model.find({});
+        const appointment = await appointment_Model.find({});
+        const data = {
+            doctors:doctors.length,
+            patients:users.length,
+            appointment:appointment.length,
+            latestAppointment:appointment.reverse().slice(0,5)
+        }
+        res.json({success:true,data});
     } catch (error) {
         console.log(error);
         res.json({success:false,message:error.message});

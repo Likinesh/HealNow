@@ -16,6 +16,8 @@ connectCloudinary();
 // middleware
 app.use(express.json());
 app.use(cors());
+app.options('*', cors()); // Preflight request handling
+
 
 // api
 app.use('/api/admin',adminRouter);
