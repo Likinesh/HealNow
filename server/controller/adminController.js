@@ -98,3 +98,39 @@ export const admin_dashboard = async(req,res)=>{
         res.json({success:false,message:error.message});
     }
 }
+
+export const appointment_Admin = async(req,res)=> {
+    try {
+        const appointment = await appointment_Model.find({});
+        res.json({success:true,data:appointment});
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message});
+    }
+}
+
+export const cancelAppointment = async(req,res) =>{
+    try {
+        const { appointmentId } = req.body;
+        const appointmentData = await appointment_Model.findById(appointmentId);
+        
+        await appointment_Model.findByIdAndUpdate(appointmentId, {
+          cancelled: true,
+        })
+    
+        const { docId, slotDate, slotTime } = appointmentData;
+    
+        const docData = await Doctor_model.findById(docId);
+        let slots_booked = docData.slots_booked;
+        slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime);
+        await Doctor_model.findByIdAndUpdate(docId, {
+          slots_booked
+        })
+    
+        res.json({ success: true, message: 'Appointment Cancelled' });
+    
+      } catch (error) {
+        console.log(error);
+        return res.json({ success: false, message: error.message });
+      }
+}
