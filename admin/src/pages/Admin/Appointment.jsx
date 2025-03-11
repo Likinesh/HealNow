@@ -28,13 +28,13 @@ const Appointment = () => {
           appointments.map((item,index)=>{
             <div key={index} className=" flex  flex-wrap justify-between max-sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500 px-6 py-3 border-b hover:bg-gray-50">
               <p className="max-sm:hidden">{index+1}</p>
-              <div className=" felx items-center gap-2">
+              <div className=" flex items-center gap-2">
                 <img className=" w-8 rounded-full" src={item.userData.image} alt="" />
                 <p>{item.userData.name}</p>
               </div>
-              <p className=" max-sm:hidden">{calculateAge(item.userData.image)}</p>
+              <p className=" max-sm:hidden">{calculateAge(item.userData.dob)}</p>
               <p>{slotDateFormat(item.slotDate)},{item.slotTime}</p>
-              <div className=" felx items-center gap-2">
+              <div className=" flex items-center gap-2">
                 <img className=" w-8 rounded-full bg-gray-200" src={item.docData.image} alt="" />
                 <p>{item.docData.name}</p>
               </div>

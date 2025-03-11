@@ -16,7 +16,7 @@ import DoctorsList from './pages/Admin/DoctorsList';
 import { DoctorContext } from './context/DoctorContext';
 import DoctorAppointment from './pages/Doctor/DoctorAppointment';
 import DoctorProfile from './pages/Doctor/DoctorProfile';
-import Img from '../public/1.jpeg';
+import Img from './assets/1.jpeg';
 
 const App = () => {
   const {Token} = useContext(Admincontext);
