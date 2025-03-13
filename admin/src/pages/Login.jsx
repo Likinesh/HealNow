@@ -28,7 +28,7 @@ const Login = () => {
                     toast.error(data.message);
                 }
             }
-            else{
+            else if(state=='Doctor'){
                 const {data} = await axios.post(backendUrl+'api/doctor/login',{email,password});
                 if(data.success){
                     console.log(data.token);
