@@ -9,7 +9,7 @@ export const DoctorContextProvider = (props) =>{
     
     const backendurl=import.meta.env.VITE_BACKEND_URL;
     const [dToken,setdToken] = useState(localStorage.getItem('dToken')?localStorage.getItem('dToken'):'');
-    const [appointment,set_Appointment] = useState([]);
+    const [appointments,set_Appointment] = useState([]);
 
     const getAppointments =  async()=>{
         try {
@@ -58,7 +58,7 @@ export const DoctorContextProvider = (props) =>{
     }
 
     const value={
-        dToken,setdToken,backendurl,appointment,set_Appointment,complete_appointment,cancel_appointment,getAppointments
+        dToken,setdToken,backendurl,appointments,set_Appointment,complete_appointment,cancel_appointment,getAppointments
     };
     
     return(
