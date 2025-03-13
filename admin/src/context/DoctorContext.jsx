@@ -9,6 +9,7 @@ export const DoctorContextProvider = (props) =>{
     
     const backendurl=import.meta.env.VITE_BACKEND_URL;
     const [dToken,setdToken] = useState(localStorage.getItem('dToken')?localStorage.getItem('dToken'):'');
+
     const [appointment,set_Appointment] = useState([]);
     const [dashData, setDashData] = useState(false);
     const [profileData, setProfileData] = useState(false);

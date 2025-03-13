@@ -34,7 +34,7 @@ export const doctor_login = async(req,res)=>{
 
         const isMatch = bcrypt.compare(password,doctor.password);
         if(isMatch){
-            const token = jwt.sign({id:doctor._id},process.env,SECRET_KEY);
+            const token = jwt.sign({id:doctor._id},process.env.SECRET_KEY);
             res.json({success:true,token});
         }
         else{
