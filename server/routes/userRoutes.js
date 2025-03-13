@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import express from 'express'                                                                              //paymentRazorpay, verifyRazorpay
-=======
-import express from 'express'
->>>>>>> 06a841cb4e3ad74d597ab26032d51c3d499b64ed
 import { BookAppointment, cancelAppointment, GetProfile, LoginUser, registerUSer, UpdateProfile, UserBooking} from '../controller/userController.js';
 import { UserAdmin } from '../middleware/authUser.js';
 import { upload } from '../middleware/multer.js';
