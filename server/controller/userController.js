@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import User_Model from "../models/userModel.js";
 import Doctor_model from "../models/doctorModel.js";
 import appointment_Model from "../models/appointmentModel.js";
-import razorpay from 'razorpay';
+// import razorpay from 'razorpay';
 //User register
 
 export const registerUSer = async (req, res) => {

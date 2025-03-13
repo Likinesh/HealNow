@@ -9,7 +9,7 @@ import userRoute from "./routes/userRoutes.js";
 
 // app
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 connectDb();
 connectCloudinary();
 
