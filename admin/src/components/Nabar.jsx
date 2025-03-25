@@ -1,20 +1,22 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { Admincontext } from '../context/AdminContext'
 import { useNavigate } from 'react-router-dom'
 
 import { DoctorContext } from '../context/DoctorContext'
+import axios from 'axios'
 const Nabar = () => {
-    const {Token,setToken} = useContext(Admincontext);
+    const {Token,setToken,backendUrl} = useContext(Admincontext);
     const {dToken,setdToken} = useContext(DoctorContext);
 
     const navigate= useNavigate();
-    const logout = ()=>{
+    const logout = async()=>{
         navigate('/');
-        Token && setToken('');
-        dToken && setdToken('');
+        Token && setToken('') && await axios.post(backendUrl+'api/admin/logout',{},{withCredentials:true});
+        dToken && setdToken('') && await axios.post(backendUrl+'api/doctor/logout',{},{withCredentials:true});
+      
         Token && localStorage.removeItem('Token');
-
         dToken && localStorage.removeItem('dToken');
     }
 

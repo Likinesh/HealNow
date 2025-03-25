@@ -11,6 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (Token) {
       getData();
+      console.log(d_data.latestAppointment);
     }
   }, []);
   return d_data && (
@@ -50,7 +51,8 @@ const Dashboard = () => {
 
         <div className="pt-4 border border-t-0 ">
           {
-            d_data.latestAppointment.map(({ item, index }) => {
+            d_data.latestAppointment.length>0 && 
+            d_data.latestAppointment.map((item, index) => {
               <div key={index} className="flex items-center px-6 py-3 gap-3 hover:bg-gray-100">
                 <img className=" rounded-full w-10" src={item.docData.image} />
                 <div className=" flex-1 text-sm">

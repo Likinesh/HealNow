@@ -5,6 +5,7 @@ import Doctor_model from '../models/doctorModel.js';
 import jwt from 'jsonwebtoken';
 import User_Model from '../models/userModel.js';
 import appointment_Model from '../models/appointmentModel.js';
+import { generateTokenAndSetCookie } from '../utils/generateTokenAndSetCookie.js';
 export const doctorRegister = async(req,res)=>{
     try {
         const {name,email,password,speciality,degree,experience,about,fees,address} = req.body;
@@ -59,8 +60,9 @@ export const loginAdmin = async(req,res)=>{
     try {
         const {email,password} = req.body;
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PWD){
-            const token = jwt.sign(email+password,process.env.SECRET_KEY);
-            res.json({success:true,token});
+            // const token = jwt.sign(email+password,process.env.SECRET_KEY);
+            generateTokenAndSetCookie(res,email,"token");
+            res.json({success:true});
         }
         else{
             res.json({success:false,message:"Invalid Credentials"});
@@ -134,3 +136,8 @@ export const cancelAppointment = async(req,res) =>{
         return res.json({ success: false, message: error.message });
       }
 }
+
+export const logout = async (req, res) => {
+	res.clearCookie("token");
+	res.json({ success: true, message: "Logged out successfully" });
+};

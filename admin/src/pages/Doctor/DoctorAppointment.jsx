@@ -8,6 +8,7 @@ const DoctorAppointment = () => {
   const {currency,calculateAge,slotDateFormat } = useContext(Appcontext);
   useEffect(()=>{
     getAppointments();
+    console.log(appointments);
   },[dToken]);
 
   return (
@@ -24,6 +25,7 @@ const DoctorAppointment = () => {
               <p>Actions</p>
             </div>
             {
+              appointments &&
               appointments.reverse().map((item,index)=>{
                 <div key={index} className=" flex  flex-wrap justify-between max-sm:gap-5 max-sm:text-base grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] items-center text-gray-500 px-6 py-3 border-b hover:bg-gray-50">
                   <p className="max-sm:hidden">{index+1}</p>

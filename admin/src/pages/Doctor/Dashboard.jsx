@@ -3,10 +3,9 @@ import { DoctorContext } from "../../context/DoctorContext"
 import { assets } from "../../assets/assets";
 import { Appcontext } from "../../context/Appcontext";
 
-
 const D_Dashboard = () => {
 
-  const { dToken, dashData, setDashData, getDashData, complete_appointment, cancel_appointment } = useContext(DoctorContext)
+  const { dToken, dashData, getDashData, complete_appointment, cancel_appointment } = useContext(DoctorContext)
   const {currency, slotDateFormat} = useContext(Appcontext)
  
   useEffect(() => {
@@ -51,7 +50,7 @@ const D_Dashboard = () => {
         </div>
 
         <div className="pt-4 border border-t-0 ">
-          {
+          { dashData.latestAppointment &&
             dashData.latestAppointment.map(({item,index})=>{
                 <div key={index} className="flex items-center px-6 py-3 gap-3 hover:bg-gray-100">
                   <img className=" rounded-full w-10" src={item.userData.image} />

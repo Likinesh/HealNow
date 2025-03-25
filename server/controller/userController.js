@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import User_Model from "../models/userModel.js";
 import Doctor_model from "../models/doctorModel.js";
 import appointment_Model from "../models/appointmentModel.js";
+import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 // import razorpay from 'razorpay';
 //User register
 
@@ -39,9 +40,9 @@ export const registerUSer = async (req, res) => {
     const new_user = new User_Model(data);
     const user = await new_user.save();
 
-    const utoken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
-
-    return res.json({ success: true, utoken });
+    // const utoken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
+    generateTokenAndSetCookie(res, user._id,"utoken");
+    return res.json({ success: true });
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: error.message });
@@ -57,8 +58,9 @@ export const LoginUser = async (req, res) => {
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
-      const utoken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
-      return res.json({ success: true, utoken });
+      // const utoken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
+      generateTokenAndSetCookie(res, user._id,"utoken");
+      return res.json({ success: true });
     } else {
       return res.json({ success: false, message: "Wrong Password" });
     }
@@ -66,6 +68,11 @@ export const LoginUser = async (req, res) => {
     console.log(error);
     return res.json({ success: false, message: error.message });
   }
+};
+
+export const logout = async (req, res) => {
+	res.clearCookie("utoken");
+	res.json({ success: true, message: "Logged out successfully" });
 };
 
 export const GetProfile = async (req, res) => {

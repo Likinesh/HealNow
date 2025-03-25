@@ -2,6 +2,7 @@ import Doctor_model from "../models/doctorModel.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import appointment_Model from "../models/appointmentModel.js";
+import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 export const change_Avail = async(req,res)=>{
     try {
         const {docId} =req.body;
@@ -27,15 +28,16 @@ export const allDoctors = async (req,res)=>{
 export const doctor_login = async(req,res)=>{
     try {
         const {email,password} = req.body;
-        const doctor = await Doctor_model.findOne({email});
-        if(!doctor){
+        const user = await Doctor_model.findOne({email});
+        if(!user){
             return res.json({success:false,message:'Account Not Found'});
         }
 
-        const isMatch = bcrypt.compare(password,doctor.password);
+        const isMatch = bcrypt.compare(password,user.password);
         if(isMatch){
-            const token = jwt.sign({id:doctor._id},process.env.SECRET_KEY);
-            res.json({success:true,token});
+            // const token = jwt.sign({id:doctor._id},process.env.SECRET_KEY);
+            generateTokenAndSetCookie(res, user._id,"dtoken");
+            res.json({success:true});
         }
         else{
             return res.json({success:false,message:'Invalid Credentials'});
@@ -102,7 +104,7 @@ export const doctor_dashboard = async (req, res) => {
 
         let earnings = 0
         
-        appointmetns.map((item)=>{
+        appointments.map((item)=>{
             if(item.isCompleted || item.payment){
                 earnings += item.amount
             }
@@ -110,7 +112,7 @@ export const doctor_dashboard = async (req, res) => {
 
         let patients = []
 
-        appointmetns.map((item)=>{
+        appointments.map((item)=>{
             if(!patients.includes(item.userId)){
                 patients.push(item.userId)
             }
@@ -157,3 +159,8 @@ export const updateDoctorProfile = async (req,res) => {
         res.json({success:false,message:error.message});
     }
 }
+
+export const logout = async (req, res) => {
+	res.clearCookie("dtoken");
+	res.json({ success: true, message: "Logged out successfully" });
+};
