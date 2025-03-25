@@ -7,7 +7,7 @@ import { months } from '../constants';
 
 const Myappointements = () => {
 
-  const { BackendUrl,utoken,getDoctorsData } = useContext(AppContext)
+  const { BackendUrl,utoken,getDoctorsData,userData } = useContext(AppContext)
   const [appointment,set_appointment] = useState([]);
 
   // const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Myappointements = () => {
 
   const getUserAppointment = async () => {
     try {
-      const {data} = await axios.get(BackendUrl+'api/user/appointments',{headers:{utoken}});
+      const {data} = await axios.get(BackendUrl+'api/user/appointments',{withCredentials:true});
       if(data.success){
         set_appointment(data.appointments.reverse());
       }
@@ -33,8 +33,9 @@ const Myappointements = () => {
 
   const cancelAppointment = async(appointmentId) =>{
     try {
-      
-      const {data} = await axios.post(BackendUrl+'api/user/cancel-appointment',{appointmentId},{headers:{utoken}})
+      // console.log(userData);
+      const userId = userData._id;
+      const {data} = await axios.post(BackendUrl+'api/user/cancel-appointment',{userId,appointmentId},{withCredentials:true})
       if(data.success){
         toast.success(data.message);
         getUserAppointment();

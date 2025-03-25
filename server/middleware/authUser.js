@@ -26,7 +26,8 @@ export const UserAdmin = (req, res, next) => {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
         if (!decoded) return res.json({ success: false, message: "Unauthorized - invalid token" });
-
+        console.log(decoded);
+        req.user=decoded;
         next();
     } catch (error) {
         console.log("Error in verifyToken ", error);

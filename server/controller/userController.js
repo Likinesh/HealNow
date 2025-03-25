@@ -77,8 +77,8 @@ export const logout = async (req, res) => {
 
 export const GetProfile = async (req, res) => {
   try {
-    const { userId } = req.body;
-    const userData = await User_Model.findById(userId).select("-password");
+    const { user } = req;
+    const userData = await User_Model.findById(user.userId).select("-password");
 
     res.json({ success: true, userData });
   } catch (error) {
@@ -89,7 +89,9 @@ export const GetProfile = async (req, res) => {
 
 export const UpdateProfile = async (req, res) => {
   try {
-    const { userId, name, phone, address, dob, gender } = req.body;
+    const { name, phone, address, dob, gender } = req.body;
+    const {user} = req;
+    userId=user.userId;
     const imageFile = req.file;
     if (!name || !phone || !address || !dob || !gender) {
       return res.json({ success: false, message: "Data Missing" });
@@ -113,9 +115,10 @@ export const UpdateProfile = async (req, res) => {
 
 export const BookAppointment = async (req, res) => {
   try {
-    const { userId, docId, slotDate, slotTime } = req.body;
-
+    const { docId, slotDate, slotTime } = req.body;
+    const {user} = req;
     const docData = await Doctor_model.findById(docId).select('-password');
+    console.log(user.userId);
     if (!docData.available) {
       return res.json({ success: false, message: 'Doctor Not Available' });
     }
@@ -134,10 +137,11 @@ export const BookAppointment = async (req, res) => {
       slots_booked[slotDate] = [];
       slots_booked[slotDate].push(slotTime);
     }
-    const userData = await User_Model.findById(userId).select('-password');
+    const id=user.userId
+    const userData = await User_Model.findById(user.userId).select('-password');
     delete docData.slots_booked;
     const appointment_data = {
-      userId,
+      userId:id,
       docId,
       userData,
       docData,
@@ -161,8 +165,8 @@ export const BookAppointment = async (req, res) => {
 
 export const UserBooking = async (req, res) => {
   try {
-    const { userId } = req.body;
-    const appointments = await appointment_Model.find({ userId });
+    const { user } = req;
+    const appointments = await appointment_Model.find({ userId:user.userId });
     res.json({ success: true, appointments })
   } catch (error) {
     console.log(error);
@@ -172,9 +176,10 @@ export const UserBooking = async (req, res) => {
 
 export const cancelAppointment = async (req, res) => {
   try {
-    const { userId, appointmentId } = req.body;
+    const { userId,appointmentId } = req.body;
     const appointmentData = await appointment_Model.findById(appointmentId);
-    if (appointmentId.userId != userId) {
+    // console.log(appointmentData)
+    if (appointmentData.userId != userId) {
       return res.json({ success: false, message: 'Unauthorized access' });
     }
     await appointment_Model.findByIdAndUpdate(appointmentId, {

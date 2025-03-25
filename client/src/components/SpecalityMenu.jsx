@@ -1,5 +1,4 @@
-import React from 'react'
-import {assets, specialityData} from '../assets/assets'
+import { specialityData} from '../assets/assets'
 import { Link } from 'react-router-dom'
 
 function SpecalityMenu() {

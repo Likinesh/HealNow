@@ -28,9 +28,10 @@ export const AppContextProvider = (props) =>{
 
     const userProfile = async()=>{
         try {
-            const {data} = await axios.get(BackendUrl+`api/user/get-profile`,{headers:{utoken}});
+            const {data} = await axios.get(BackendUrl+`api/user/get-profile`,{withCredentials:true});
             if(data.success){
                 set_user(data.userData)
+                console.log(userData);
             }
             else{
                 toast.error(data.message);

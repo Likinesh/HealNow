@@ -84,7 +84,7 @@ const Appointment = () => {
       let year = date.getFullYear();
 
       const slotDate = day+'_'+month+'_'+year;
-      const { data } = await axios.post(BackendUrl+'api/user/book-appointment',{docId,slotDate,slotTime},{headers:{utoken}})
+      const { data } = await axios.post(BackendUrl+'api/user/book-appointment',{docId,slotDate,slotTime},{withCredentials:true});
     
       if(data.success){
         toast.success(data.message);

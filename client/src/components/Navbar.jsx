@@ -2,13 +2,15 @@ import { useContext, useState } from 'react'
 import {assets} from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext';
+import axios from 'axios';
 
 const Navbar = () => {
     const navigate = useNavigate();
 
     const [showMenu, setShowMenu] = useState(false);
-    const {utoken, set_token,userData} = useContext(AppContext);
-    const logout = () =>{
+    const {utoken, set_token,userData,BackendUrl} = useContext(AppContext);
+    const logout = async() =>{
+        await axios.post(BackendUrl+'api/user/logout',{},{withCredentials:true});
         set_token(false);
         localStorage.removeItem('utoken');
     }

@@ -16,21 +16,23 @@ const Login = () => {
     event.preventDefault()
     try {
       if(state==='Sign Up'){
-        const {data}=await axios.post(BackendUrl+'api/user/register',{name,email,password});
+        const {data}=await axios.post(BackendUrl+'api/user/register',{name,email,password},{withCredentials:true});
         if(data.success){
           localStorage.setItem('utoken',data.utoken);
           set_token(data.utoken);
+          window.location.reload();
         }
         else{
           toast.error(data.message);
         }
       }
       else{
-        const {data}=await axios.post(BackendUrl+'api/user/login',{email,password});
+        const {data}=await axios.post(BackendUrl+'api/user/login',{email,password},{withCredentials:true});
         if(data.success){
           localStorage.setItem('utoken',data.utoken);
           set_token(data.utoken);
-          console.log(utoken)
+          console.log(utoken);
+          window.location.reload();
         }
         else{
           toast.error(data.message);
