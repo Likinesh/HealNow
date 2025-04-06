@@ -13,7 +13,7 @@ adminRouter.post('/all-doctors',authAdmin,alldoctors);
 adminRouter.post('/change-avail',authAdmin,change_Avail);
 adminRouter.get('/dashboard',authAdmin,admin_dashboard);
 adminRouter.get('/appointment',authAdmin,appointment_Admin)
-adminRouter.post('/cancel',authAdmin,cancelAppointment);
+adminRouter.post('/cancel',cancelAppointment);
 adminRouter.post('/logout',logout);
 
 export default adminRouter
