@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 export const UserAdmin = async (req,res,next) =>{
     try {
         const {utoken} = req.headers;
+        console.log(utoken);
         if(!utoken){
             return res.json({success:false,message:'Invalid token or token expired'});
         }

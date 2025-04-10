@@ -79,8 +79,10 @@ export const LoginUser = async (req, res) => {
 
 export const GetProfile = async (req, res) => {
   try {
-    const { user } = req;
-    const userData = await User_Model.findById(user.userId).select("-password");
+    const { userId } = req.body;
+     const userData = await User_Model.findById(userId).select("-password");
+    // const { user } = req;
+    // const userData = await User_Model.findById(user.userId).select("-password");
 
     res.json({ success: true, userData });
   } catch (error) {
@@ -117,8 +119,8 @@ export const UpdateProfile = async (req, res) => {
 
 export const BookAppointment = async (req, res) => {
   try {
-    const { docId, slotDate, slotTime } = req.body;
-    const {user} = req;
+    const { userId,docId, slotDate, slotTime } = req.body;
+    // const {user} = req;
     const docData = await Doctor_model.findById(docId).select('-password');
     console.log(user.userId);
     if (!docData.available) {
@@ -139,7 +141,8 @@ export const BookAppointment = async (req, res) => {
       slots_booked[slotDate] = [];
       slots_booked[slotDate].push(slotTime);
     }
-    const id=user.userId
+    // const id=user.userId
+    const id = userId
     const userData = await User_Model.findById(user.userId).select('-password');
     delete docData.slots_booked;
     const appointment_data = {
@@ -167,8 +170,10 @@ export const BookAppointment = async (req, res) => {
 
 export const UserBooking = async (req, res) => {
   try {
-    const { user } = req;
-    const appointments = await appointment_Model.find({ userId:user.userId });
+    const { userId } = req.body;
+     const appointments = await appointment_Model.find({ userId });
+    // const { user } = req;
+    // const appointments = await appointment_Model.find({ userId:user.userId });
     res.json({ success: true, appointments })
   } catch (error) {
     console.log(error);

@@ -40,7 +40,7 @@ const AddDoctor = () => {
       form_data.append('address',JSON.stringify({line1:addr1,line2:addr2}));
 
       // data
-      const {data} = await axios.post(backendUrl+'api/admin/add-doctor',form_data,{withCredentials:true});
+      const {data} = await axios.post(backendUrl+'api/admin/add-doctor',form_data,{headers:{Token}});
       
       if(data.success){
         toast.success(data.message);

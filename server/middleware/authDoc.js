@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 export const authDoc = async (req,res,next) =>{
     try {
         const {dToken} = req.headers;
+        console.log(dToken);
         if(!dToken){
             return res.json({success:false,message:'Invalid token or token expired'});
         }

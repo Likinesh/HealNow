@@ -10,9 +10,10 @@ const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const {utoken, set_token,userData,BackendUrl} = useContext(AppContext);
     const logout = async() =>{
-        await axios.post(BackendUrl+'api/user/logout',{},{withCredentials:true});
+        // await axios.post(BackendUrl+'api/user/logout',{},{withCredentials:true});
         set_token(false);
         localStorage.removeItem('utoken');
+        window.location.reload();
     }
   return (
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
@@ -20,19 +21,19 @@ const Navbar = () => {
         <ul className='hidden md:flex items-start gap-5 font-medium'>
             <NavLink to='/'>
                 <li className='py-1'>Home</li>
-                <hr className='border-none outline-none h-0.5 bg-blue-700 w-3/5 m-auto hidden'/>
+                <hr className='border-none outline-none h-0.5 bg-blue-400 w-3/5 m-auto hidden'/>
             </NavLink>
             <NavLink to='doctors'>
                 <li className='py-1'>All Doctors</li>
-                <hr className='border-none outline-none h-0.5 bg-blue-700 w-3/5 m-auto hidden'/>
+                <hr className='border-none outline-none h-0.5 bg-blue-400 w-3/5 m-auto hidden'/>
             </NavLink>
             <NavLink to='/about'>
                 <li className='py-1'>About</li>
-                <hr className='border-none outline-none h-0.5 bg-blue-700 w-3/5 m-auto hidden'/>
+                <hr className='border-none outline-none h-0.5 bg-blue-400 w-3/5 m-auto hidden'/>
             </NavLink>
             <NavLink to='/contact'>
                 <li className='py-1'>Contact</li>
-                <hr className='border-none outline-none h-0.5 bg-blue-700 w-3/5 m-auto hidden'/>
+                <hr className='border-none outline-none h-0.5 bg-blue-400 w-3/5 m-auto hidden'/>
             </NavLink>
         </ul>
         <div className='flex items-center gap-4'>
@@ -40,7 +41,7 @@ const Navbar = () => {
                 utoken && userData
                 ? <div className='flex items-center gap-2 cursor-pointer group relative'>
                     <img className='w-9 rounded-full' src={userData.image} alt="" />
-                    <img className='w-3' src={assets.dropdown_icon} alt="" />
+                    <img className='w-3 ' src={assets.dropdown_icon} alt="" />
                     <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block '>
                         <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4'>
                             <p onClick={()=>navigate('my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
@@ -49,7 +50,7 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div> 
-                : <button onClick={()=>navigate('./login')} className='cursor-pointer bg-blue-700 text-white px-8 py-3 rounded-full font-light hidden md:block'>Create Account</button>
+                : <button onClick={()=>navigate('./login')} className='cursor-pointer bg-blue-400 text-white px-8 py-3 rounded-full font-light hidden md:block'>Create Account</button>
             }
             <img onClick={()=>setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
             {/* -------mobile menu--------- */}
@@ -63,7 +64,7 @@ const Navbar = () => {
                     <NavLink onClick={()=>setShowMenu(false)} to='/doctors'><p className='px-4 py-2 rounded inline-block cursor-pointer'>All Doctors</p></NavLink>
                     <NavLink onClick={()=>setShowMenu(false)} to='/about'><p className='px-4 py-2 rounded inline-block cursor-pointer'>About Us</p></NavLink> 
                     <NavLink onClick={()=>setShowMenu(false)} to='/contact'><p className='px-4 py-2 rounded inline-block cursor-pointer'>Contact us</p></NavLink>
-                    <NavLink onClick={()=>setShowMenu(false)} to='./login'><p className='px-4 py-2 inline-block cursor-pointer bg-blue-700 text-white rounded-full'>Create Account</p></NavLink>
+                    <NavLink onClick={()=>setShowMenu(false)} to='./login'><p className='px-4 py-2 inline-block cursor-pointer bg-blue-300 text-white rounded-full'>Create Account</p></NavLink>
                 </ul>
             </div>
         </div>

@@ -16,7 +16,7 @@ const Login = () => {
     event.preventDefault()
     try {
       if(state==='Sign Up'){
-        const {data}=await axios.post(BackendUrl+'api/user/register',{name,email,password},{withCredentials:true});
+        const {data}=await axios.post(BackendUrl+'api/user/register',{name,email,password},{headers:{utoken}});
         if(data.success){
           localStorage.setItem('utoken',data.utoken);
           set_token(data.utoken);
@@ -27,7 +27,7 @@ const Login = () => {
         }
       }
       else{
-        const {data}=await axios.post(BackendUrl+'api/user/login',{email,password},{withCredentials:true});
+        const {data}=await axios.post(BackendUrl+'api/user/login',{email,password},{headers:{utoken}});
         if(data.success){
           localStorage.setItem('utoken',data.utoken);
           set_token(data.utoken);

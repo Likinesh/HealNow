@@ -14,7 +14,7 @@ export const AdmincontextProvider = (props) =>{
     const getAllDoctors = async()=>{
         try {
             // console.log(Token);
-            const {data} = await axios.post(backendUrl+'api/admin/all-doctors',{},{withCredentials:true});
+            const {data} = await axios.post(backendUrl+'api/admin/all-doctors',{},{headers:{Token}});
             if(data.success){
                 setDoctors(data.doctors);
             }
@@ -27,7 +27,7 @@ export const AdmincontextProvider = (props) =>{
     }
     const changeAvailability = async(docId) =>{
         try {
-            const {data} = await axios.post(backendUrl+'api/admin/change-avail',{docId},{withCredentials:true});
+            const {data} = await axios.post(backendUrl+'api/admin/change-avail',{docId},{headers:{Token}});
             if(data.success){
                 toast.success(data.message);
                 getAllDoctors();
@@ -41,7 +41,7 @@ export const AdmincontextProvider = (props) =>{
     };
     const getData = async() => {
         try {
-            const { data } = await axios.get(backendUrl+`api/admin/dashboard`,{withCredentials:true});
+            const { data } = await axios.get(backendUrl+`api/admin/dashboard`,{headers:{Token}});
             if(data.success){
                 set_data(data.data);
             }
@@ -54,7 +54,7 @@ export const AdmincontextProvider = (props) =>{
     }
     const getAppointment = async()=>{
         try {
-            const {data } = await axios.get(backendUrl+`api/admin/appointment`,{withCredentials:true});
+            const {data } = await axios.get(backendUrl+`api/admin/appointment`,{headers:{Token}});
             if(data.success){
                 set_appointment(data);
             }
@@ -67,7 +67,7 @@ export const AdmincontextProvider = (props) =>{
     }
     const cancelAppointment = async(appointmentId)=>{
         try {
-            const {data} = await axios.post(backendUrl+`api/admin/cancel`,{appointmentId},{withCredentials:true});
+            const {data} = await axios.post(backendUrl+`api/admin/cancel`,{appointmentId},{headers:{Token}});
             if(data.success){
                 toast.success(data.message);
                 getAppointment();

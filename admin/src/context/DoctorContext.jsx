@@ -48,7 +48,7 @@ export const DoctorContextProvider = (props) =>{
     }
     const cancel_appointment = async(appointmentId) =>{
         try {
-            const {data} = axios.get(backendurl+'api/doctor/cancel',{appointmentId},{withCredentials:true})
+            const {data} = axios.get(backendurl+'api/doctor/cancel',{appointmentId},{headers:{dToken}})
             if(data.success){
                 toast.success(data.message);
                 getAppointments();
@@ -81,7 +81,7 @@ export const DoctorContextProvider = (props) =>{
 
     const getProfileData = async () =>{
         try {
-            const {data} = await axios.get(backendurl + 'api/doctor/profile', {withCredentials:true})
+            const {data} = await axios.get(backendurl + 'api/doctor/profile', {headers:{dToken}})
             if(data.success){
                 setProfileData(data.profileData)
                 console.log(data.profileData)

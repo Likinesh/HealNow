@@ -10,7 +10,7 @@ const Footer = () => {
             {/* --------left section -------*/}
             <div>
                 <img onClick={()=>navigate('/')} className='mb-5 w-40' src={assets.logo} alt="" />
-                <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quam aliquam reprehenderit numquam rerum, magni dolore similique vitae distinctio, commodi possimus? Aspernatur qui fugiat accusantium tenetur ab eos tempora quia?</p>
+                <p className='w-full md:w-2/3 text-gray-600 leading-6'>Welcome to HealNow, your trusted partner in managing your healthcare needs conveniently and efficiently. At HealNow, we understand the challenges individuals face when it comes to scheduling doctor appointments and managing their health records.</p>
             </div>
 
             {/* --------center section -------*/}

@@ -19,7 +19,7 @@ const Myappointements = () => {
 
   const getUserAppointment = async () => {
     try {
-      const {data} = await axios.get(BackendUrl+'api/user/appointments',{withCredentials:true});
+      const {data} = await axios.get(BackendUrl+'api/user/appointments',{headers:{utoken}});
       if(data.success){
         set_appointment(data.appointments.reverse());
       }
@@ -35,7 +35,7 @@ const Myappointements = () => {
     try {
       // console.log(userData);
       const userId = userData._id;
-      const {data} = await axios.post(BackendUrl+'api/user/cancel-appointment',{userId,appointmentId},{withCredentials:true})
+      const {data} = await axios.post(BackendUrl+'api/user/cancel-appointment',{userId,appointmentId},{headers:{utoken}})
       if(data.success){
         toast.success(data.message);
         getUserAppointment();

@@ -28,7 +28,7 @@ export const AppContextProvider = (props) =>{
 
     const userProfile = async()=>{
         try {
-            const {data} = await axios.get(BackendUrl+`api/user/get-profile`,{withCredentials:true});
+            const {data} = await axios.get(BackendUrl+`api/user/get-profile`,{headers:{utoken}});
             if(data.success){
                 set_user(data.userData)
                 console.log(userData);
@@ -66,9 +66,7 @@ export const AppContextProvider = (props) =>{
         userProfile 
     };
 
-    
-
-    
+        
     return(
         <AppContext.Provider value={value}>
             {props.children}
