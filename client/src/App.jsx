@@ -29,6 +29,8 @@ const App = () => {
           <Route path='/my-appointments' element={<Myappointement/>}/>
           <Route path='/appointment/:docId' element={<Appointment/>}/>
         </Routes>
+        <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+        <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cm94f8ndx000woxm3fgnd2aef'></zapier-interfaces-chatbot-embed>
         <Footer/>
     </div>
   )
