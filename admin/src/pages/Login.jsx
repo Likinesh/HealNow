@@ -17,7 +17,8 @@ const Login = () => {
         event.preventDefault()
         try {
             if(state==='Admin'){
-                const {data} = await axios.post(backendUrl+'api/admin/login',{email,password},{withCredentials:true});
+                const {data} = await axios.post(backendUrl+'api/admin/login',{email,password});
+                // const {data} = await axios.post(backendUrl+'api/admin/login',{email,password},{withCredentials:true});
                 if(data.success){
                     console.log(data.token);
                     localStorage.setItem('Token',data.token);
@@ -30,7 +31,8 @@ const Login = () => {
                 }
             }
             else if(state=='Doctor'){
-                const {data} = await axios.post(backendUrl+'api/doctor/login',{email,password},{withCredentials:true});
+                const {data} = await axios.post(backendUrl+'api/doctor/login',{email,password});
+                // const {data} = await axios.post(backendUrl+'api/doctor/login',{email,password},{withCredentials:true});
                 if(data.success){
                     console.log(data.token);
                     localStorage.setItem('dToken',data.token);

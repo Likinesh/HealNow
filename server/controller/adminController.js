@@ -60,9 +60,9 @@ export const loginAdmin = async(req,res)=>{
     try {
         const {email,password} = req.body;
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PWD){
-            // const token = jwt.sign(email+password,process.env.SECRET_KEY);
-            generateTokenAndSetCookie(res,email,"token");
-            res.json({success:true});
+            const token = jwt.sign(email+password,process.env.SECRET_KEY);
+            // generateTokenAndSetCookie(res,email,"token");
+            // res.json({success:true});
         }
         else{
             res.json({success:false,message:"Invalid Credentials"});
@@ -137,7 +137,7 @@ export const cancelAppointment = async(req,res) =>{
       }
 }
 
-export const logout = async (req, res) => {
-	res.clearCookie("token");
-	res.json({ success: true, message: "Logged out successfully" });
-};
+// export const logout = async (req, res) => {
+// 	res.clearCookie("token");
+// 	res.json({ success: true, message: "Logged out successfully" });
+// };

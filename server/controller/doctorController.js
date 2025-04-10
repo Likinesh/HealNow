@@ -35,9 +35,10 @@ export const doctor_login = async(req,res)=>{
 
         const isMatch = bcrypt.compare(password,user.password);
         if(isMatch){
-            // const token = jwt.sign({id:doctor._id},process.env.SECRET_KEY);
-            generateTokenAndSetCookie(res, user._id,"dtoken");
-            res.json({success:true});
+            const token = jwt.sign({id:doctor._id},process.env.SECRET_KEY);
+            res.json({success:true,token});
+            // generateTokenAndSetCookie(res, user._id,"dtoken");
+            // res.json({success:true});
         }
         else{
             return res.json({success:false,message:'Invalid Credentials'});
@@ -160,7 +161,7 @@ export const updateDoctorProfile = async (req,res) => {
     }
 }
 
-export const logout = async (req, res) => {
-	res.clearCookie("dtoken");
-	res.json({ success: true, message: "Logged out successfully" });
-};
+// export const logout = async (req, res) => {
+// 	res.clearCookie("dtoken");
+// 	res.json({ success: true, message: "Logged out successfully" });
+// };

@@ -16,7 +16,8 @@ export const DoctorContextProvider = (props) =>{
 
     const getAppointments =  async()=>{
         try {
-            const data =await axios.get(backendurl+'api/doctor/appointments',{headers:{dToken}})
+            const {data} = axios.get(backendurl+'api/doctor/appointments',{headers:{dToken}})
+            // const data =await axios.get(backendurl+'api/doctor/appointments',{headers:{dToken}})
             // console.log(data);
             if(data.success){
                 set_Appointment(data.appointments);
@@ -63,7 +64,8 @@ export const DoctorContextProvider = (props) =>{
 
     const getDashData = async () =>{
         try {
-            const {data} = await axios.get(backendurl + 'api/doctor/dashboard', {withCredentials:true})
+            const {data} = await axios.get(backendurl + 'api/doctor/dashboard', {headers:{dToken}})
+            // const {data} = await axios.get(backendurl + 'api/doctor/dashboard', {withCredentials:true})
             if(data.success){
                 setDashData(data.dashData)
                 console.log(data.dashData)

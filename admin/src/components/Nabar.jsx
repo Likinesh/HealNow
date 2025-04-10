@@ -13,8 +13,10 @@ const Nabar = () => {
     const navigate= useNavigate();
     const logout = async()=>{
         navigate('/');
-        Token && setToken('') && await axios.post(backendUrl+'api/admin/logout',{},{withCredentials:true});
-        dToken && setdToken('') && await axios.post(backendUrl+'api/doctor/logout',{},{withCredentials:true});
+        Token && setToken('');
+        dToken && setdToken('');
+        // Token && setToken('') && await axios.post(backendUrl+'api/admin/logout',{},{withCredentials:true});
+        // dToken && setdToken('') && await axios.post(backendUrl+'api/doctor/logout',{},{withCredentials:true});
       
         Token && localStorage.removeItem('Token');
         dToken && localStorage.removeItem('dToken');
