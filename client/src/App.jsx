@@ -10,8 +10,9 @@ import Myappointement from './pages/Myappointements'
 import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Chatbot from './components/chatbot'
 
 const App = () => {
   return (
@@ -29,8 +30,9 @@ const App = () => {
           <Route path='/my-appointments' element={<Myappointement/>}/>
           <Route path='/appointment/:docId' element={<Appointment/>}/>
         </Routes>
-        <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
-        <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cm94f8ndx000woxm3fgnd2aef'></zapier-interfaces-chatbot-embed>
+        <Chatbot/>
+        {/* <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+        <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cm94f8ndx000woxm3fgnd2aef'></zapier-interfaces-chatbot-embed> */}
         <Footer/>
     </div>
   )
