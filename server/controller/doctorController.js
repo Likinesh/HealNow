@@ -51,7 +51,8 @@ export const doctor_login = async(req,res)=>{
 
 export const doctor_appointments = async(req,res)=>{
     try {
-        const docId = req.body;
+        const docId = req.body.docId;
+        console.log(docId);
         const appointments = await appointment_Model.find({docId});
         res.json({success:true,appointments});
     } catch (error) {

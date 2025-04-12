@@ -11,6 +11,8 @@ export const UserAdmin = async (req,res,next) =>{
         const token_decoded = jwt.verify(utoken,process.env.SECRET_KEY);
 
         req.body.userId = token_decoded.id
+        console.log(req.body.userId)
+        // req.user=token_decoded.id;
         next();
     } catch (error) {
         console.log(error);

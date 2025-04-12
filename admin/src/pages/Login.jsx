@@ -24,7 +24,7 @@ const Login = () => {
                     localStorage.setItem('Token',data.token);
                     setToken(data.token);
                     console.log(Token);
-                    window.location.reload();
+                    // window.location.reload();
                 }
                 else{
                     toast.error(data.message);

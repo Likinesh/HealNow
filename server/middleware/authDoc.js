@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 //admin auth
 export const authDoc = async (req,res,next) =>{
     try {
-        const {dToken} = req.headers;
-        console.log(dToken);
-        if(!dToken){
+        const {dtoken} = req.headers;
+        console.log(dtoken);
+        if(!dtoken){
             return res.json({success:false,message:'Invalid token or token expired'});
         }
-        const token_decoded = jwt.verify(dToken,process.env.SECRET_KEY);
+        const token_decoded = jwt.verify(dtoken,process.env.SECRET_KEY);
 
         req.body.docId = token_decoded.id;
 

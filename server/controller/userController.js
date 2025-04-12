@@ -93,16 +93,19 @@ export const GetProfile = async (req, res) => {
 
 export const UpdateProfile = async (req, res) => {
   try {
-    const { name, phone, address, dob, gender } = req.body;
-    const {user} = req;
-    userId=user.userId;
+    const { userId,name, phone, address, dob, gender } = req.body;
+    // const {user} = req;
+    // const userId=user;
     const imageFile = req.file;
+    // console.log(name + phone + address + dob + gender);
     if (!name || !phone || !address || !dob || !gender) {
       return res.json({ success: false, message: "Data Missing" });
     }
-    await User_Model.findByIdAndUpdate(userId, {
+    // console.log(userId);
+    const val = await User_Model.findByIdAndUpdate(userId, {
       name, phone, address: JSON.parse(address), dob, gender
     })
+    // console.log(val);
     if (imageFile) {
       const imgUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
       const imgURL = imgUpload.secure_url
@@ -122,7 +125,7 @@ export const BookAppointment = async (req, res) => {
     const { userId,docId, slotDate, slotTime } = req.body;
     // const {user} = req;
     const docData = await Doctor_model.findById(docId).select('-password');
-    console.log(user.userId);
+    // console.log(userId);
     if (!docData.available) {
       return res.json({ success: false, message: 'Doctor Not Available' });
     }
@@ -143,7 +146,7 @@ export const BookAppointment = async (req, res) => {
     }
     // const id=user.userId
     const id = userId
-    const userData = await User_Model.findById(user.userId).select('-password');
+    const userData = await User_Model.findById(userId).select('-password');
     delete docData.slots_booked;
     const appointment_data = {
       userId:id,

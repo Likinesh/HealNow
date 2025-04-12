@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import {assets} from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext';
-import axios from 'axios';
+// import axios from 'axios';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -13,6 +13,7 @@ const Navbar = () => {
         // await axios.post(BackendUrl+'api/user/logout',{},{withCredentials:true});
         set_token(false);
         localStorage.removeItem('utoken');
+        navigate('/');
         window.location.reload();
     }
   return (

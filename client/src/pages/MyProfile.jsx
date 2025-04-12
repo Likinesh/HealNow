@@ -18,6 +18,7 @@ const MyProfile = () => {
       formData.append('phone',userData.phone)
       formData.append('address',JSON.stringify(userData.address))
       formData.append('dob',userData.dob);
+      formData.append('gender',userData.gender)
       img && formData.append('image',img);
       const {data } = await axios.post(BackendUrl+'api/user/update-profile',formData,{headers:{utoken}});
       if(data.success){
