@@ -9,6 +9,7 @@ const Appointment = () => {
   useEffect(() => {
     if (Token) {
       getAppointment();
+      console.log(appointments)
     }
   }, [Token]);
   return (

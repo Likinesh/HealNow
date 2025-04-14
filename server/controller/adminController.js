@@ -62,7 +62,7 @@ export const loginAdmin = async(req,res)=>{
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PWD){
             const token = jwt.sign(email+password,process.env.SECRET_KEY);
             // generateTokenAndSetCookie(res,email,"token");
-            // res.json({success:true});
+            res.json({success:true,token});
         }
         else{
             res.json({success:false,message:"Invalid Credentials"});

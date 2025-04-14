@@ -13,7 +13,7 @@ const Dashboard = () => {
       getData();
       console.log(d_data.latestAppointment);
     }
-  }, []);
+  }, [Token]);
   return d_data && (
     <div className="m-5">
       <div className="flex flex-wrap gap-3">
@@ -51,22 +51,26 @@ const Dashboard = () => {
 
         <div className="pt-4 border border-t-0 ">
           {
-            d_data.latestAppointment.length>0 && 
-            d_data.latestAppointment.map((item, index) => {
+            d_data.latestAppointment && 
+            d_data.latestAppointment.map((item, index) => (
+              // {console.log(item)}
               <div key={index} className="flex items-center px-6 py-3 gap-3 hover:bg-gray-100">
-                <img className=" rounded-full w-10" src={item.docData.image} />
-                <div className=" flex-1 text-sm">
-                  <p className="text-gray-800 font-medium">{item.docData.name}</p>
-                  <p className=" text-gray-600">{slotDateFormat(item.slotDate)}</p>
-                </div>
-                {item.cancelled ?
-                  <p className=" text-red-400 text-xs font-medium">Cancelled</p>
-                  : item.isCompleted
-                    ? <p className="text-green-500 text-xs font-medium">Completed</p>
-                    : <img onClick={cancelAppointment(item._id)} className="w-10 cursor-pointer" src={assets.cancel_icon} alt="" />
-                }
+              <img className=" rounded-full w-10" src={item.userData.image} />
+              <div className=" flex-1 text-sm">
+                <p className="text-gray-800 font-medium">{item.userData.name}</p>
+                <p className=" text-gray-600">{slotDateFormat(item.slotDate)}</p>
               </div>
-            })
+              {item.cancelled ?
+                  <p className=" text-red-400 text-xs font-medium">Cancelled</p>
+                  : 
+                  item.isCompleted
+                    ? 
+                    <p className="text-green-500 text-xs font-medium">Completed</p>
+                    : 
+                    <img onClick={cancelAppointment(item._id)} className="w-10 cursor-pointer" src={assets.cancel_icon} alt="" />
+              }
+            </div>
+            ))
           }
         </div>
       </div>

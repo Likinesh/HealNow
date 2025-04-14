@@ -24,11 +24,13 @@ const Login = () => {
                     localStorage.setItem('Token',data.token);
                     setToken(data.token);
                     console.log(Token);
-                    // window.location.reload();
+                    window.location.reload();
                 }
-                else{
+                else {
+                    console.log("Admin login failed:", data.message);
                     toast.error(data.message);
-                }
+                  }
+                  
             }
             else if(state=='Doctor'){
                 const {data} = await axios.post(backendUrl+'api/doctor/login',{email,password});
