@@ -18,7 +18,7 @@ connectCloudinary();
 // middleware
 app.use(express.json());
 app.use(cors({
-    origin:["http://localhost:5173","http://localhost:5174"],
+    origin:["http://localhost:5173","http://localhost:5174","https://heal-now-likineshs-projects.vercel.app/","https://heal-now-client.vercel.app/"],
     credentials:true
 }));
 app.options('*', cors()); // Preflight request handling
