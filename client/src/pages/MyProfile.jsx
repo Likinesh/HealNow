@@ -36,7 +36,7 @@ const MyProfile = () => {
     }
   }
   return userData && (
-    <div className='max-w-lg flex flex-col gap-2 text-sm'>
+    <div className='max-w-lg flex flex-col gap-2 text-white text-sm'>
         {
           isEdit ?
           <label htmlFor='image'>

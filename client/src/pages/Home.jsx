@@ -5,7 +5,7 @@ import Banner from '../components/Banner'
 
 const Home = () => {
   return (
-    <div>
+    <div className='text-white'>
         <Header/>
         <SpecalityMenu/>
         <TopDoctors/>

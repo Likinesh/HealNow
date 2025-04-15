@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useState } from 'react';
 const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
 
 const chatbot = () => {
