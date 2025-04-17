@@ -30,7 +30,7 @@ const App = () => {
         <Sidebar />
         <Routes>
           <Route path='/' element={<>
-            <img src={Img} alt='WELCOME'/>
+            <img src={Img} className='h-full w-full' alt='WELCOME'/>
           </>} />
           <Route path='/admin-dashboard' element={<Dashboard />} />
           <Route path='/all-appointments' element={<Appointment />} />
