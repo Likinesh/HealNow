@@ -24,6 +24,8 @@ HealNow/
 - 🧑‍⚕️ **Doctor management** by admin  
 - 📋 **Admin dashboard** for monitoring activities  
 - 🖥️ **Responsive UI** for client and admin panels  
+- 💬 **Chat app** for client emergency communication  
+- 💳 **Payment gateway** integration using Razorpay  
 - 🔐 **Secure backend** built with Node.js and MongoDB  
 
 ---
@@ -33,8 +35,9 @@ HealNow/
 ### 🔧 Prerequisites
 
 - Node.js & npm
-- MongoDB (local or cloud)
-- (Optional) Vercel for deployment
+- React js
+- MongoDB (cloud)
+- Vercel for deployment
 
 ### 🛠️ Installation
 
@@ -58,7 +61,7 @@ Create a `.env` file in `server/` and add:
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
-PORT=5000
+PORT=3000
 ```
 
 Then start the server:
@@ -77,7 +80,7 @@ npm install
 npm start
 ```
 
-This runs the patient-facing app on `http://localhost:3000`
+This runs the patient-facing app on `http://localhost:3000`.
 
 ---
 
@@ -89,26 +92,26 @@ npm install
 npm start
 ```
 
-This runs the admin panel (usually hosted separately) on `http://localhost:3001` or another port.
+This runs the admin panel on `http://localhost:3000`.
 
 ---
 
 ## 🧪 Tech Stack
 
+-----------------------------------------
 | Layer     | Technology                |
 |-----------|---------------------------|
 | Frontend  | React.js                  |
 | Backend   | Node.js, Express.js       |
-| Database  | MongoDB + Mongoose        |
-| Styling   | CSS / Tailwind / Custom   |
-| Hosting   | Vercel / Render / MongoDB Atlas |
-
----
+| Database  | MongoDB                   |
+| Styling   | Tailwind CSS              |
+| Hosting   | Vercel / Render           |
+-----------------------------------------
 
 ## 🌍 Live Demo
 
-> **Client:** [https://heal-now-client.vercel.app](https://heal-now-client.vercel.app)  
-> *(Add links for server/admin if deployed)*
+> **Client:** [https://heal-now-client.vercel.app](https://heal-now-client.vercel.app)
+> **Admin** [https://heal-now.vercel.app](https://heal-now.vercel.app)
 
 ---
 
@@ -116,9 +119,3 @@ This runs the admin panel (usually hosted separately) on `http://localhost:3001`
 
 - [@Likithkk](https://github.com/Likithkk)
 - [@Rahulreddy4444](https://github.com/Rahulreddy4444)
-
----
-
-## 📃 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
